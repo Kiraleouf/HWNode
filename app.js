@@ -30,6 +30,11 @@ app.get('/lvlUpUser', function(req, res) {
   res.send(user.update());
 });
 
+app.get('/lvlUpRessource', function(req, res,index) {
+  user.lvlUpRessource(cst.LVL_COST[user.ressources[index].lvl],index);
+  res.send(user.update());
+});
+
 app.get('/lvlUpCost', function(req, res) {
   if(user.lvl < 30){
     res.send(""+cst.LVL_COST[user.lvl]);
@@ -37,6 +42,7 @@ app.get('/lvlUpCost', function(req, res) {
     res.send("MAX");
   }
 });
+
 
 app.get('/prestige', function(req, res) {
   res.send(user.doPrestige());

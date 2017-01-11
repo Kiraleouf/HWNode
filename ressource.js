@@ -19,6 +19,11 @@ function Ressource (name) {
       this.ammount = roundDecimal(this.ammount,2);
     }
   };
+
+  Ressource.prototype.lvlUp = function(){
+    this.lvl ++;
+  }
+
 }
 module.exports = Ressource;
 

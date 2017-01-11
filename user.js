@@ -47,7 +47,17 @@ function User (name) {
       this.lastUpdateTime = 0;
       return "prestige succes."
     }else{
-    return "can't prestige now."
+      return "can't prestige now."
+    }
+  }
+
+  User.prototype.lvlUpRessource = function(cost,index){
+    if(this.ressources[index] != undefined && this.gold > cost){
+      this.ressources[index].lvlUp();
+      this.gold = this.gold - cost;
+      return "upgrade succes."
+    }else{
+      return "can't up ressource now."
     }
   }
 
