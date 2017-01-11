@@ -1,16 +1,22 @@
+'use strict';
 var express = require('express');
+var session = require('express-session');
 var app = express();
 var USER = require('./user.js');
 var CONSTANTS = require('./constants.js');
 var bodyParser = require('body-parser');
+var cookieparser = require('cookie-parser')
+var path    = require("path");
 
 var cst = new CONSTANTS();
 var listUser = [];
-var user = new USER("kira");
-user.initRessources();
-
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+app.use(session({secret: 'TADATA'}));
+app.use("/front", express.static(__dirname + '/front'));
+
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -18,22 +24,57 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-  res.send(user.update());
+  res.redirect("/authPage")
 });
 
 app.get('/getUserInfos', function(req, res) {
-  res.send(JSON.stringify(user))
+  var sess = req.session;
+  if(req.session != undefined){
+    if(req.session.username != undefined){
+      console.log(req.session.username);
+      res.send(JSON.stringify(getUserByName(req)))
+    }else{
+      res.redirect("/authPage")
+    }
+  }else{
+    res.redirect("/authPage")
+  }
 });
+
+app.get('/authPage', function(req, res) {
+  res.sendFile(path.join(__dirname+"/front/login.html"));
+})
+
+app.get('/home', function(req, res) {
+  res.sendFile(path.join(__dirname+"/front/home.html"));
+})
 
 app.get('/getRessources', function(req, res) {
-  res.send(JSON.stringify(user.ressources))
+  var currentUser = getUserByName(req);
+  res.send(JSON.stringify(currentUser.ressources))
 });
 
+app.get('/update', function(req, res) {
+  var user = getUserByName(req);
+  res.send(user.update);
+})
 app.post('/login', function(req, res) {
-  res.send()
+  var sess = req.session;
+  sess = req.session
+  var name = req.body.username;
+
+  sess.username = name;
+
+  var user = new USER(name);
+
+  console.log(sess);
+  listUser.push(user);
+  user.initRessources();
+  res.redirect("/home");
 });
 
 app.get('/lvlUpUser', function(req, res) {
+  var user = getUserByName(req)
   user.lvlUp(cst.LVL_COST[user.lvl]);
   res.send(user.update());
 });
@@ -45,13 +86,17 @@ app.post('/lvlUpRessource', function(req, res) {
 });
 
 app.get('/lvlUpCost', function(req, res) {
-  if(user.lvl < 30){
-    res.send(""+cst.LVL_COST[user.lvl]);
+  var currentUser = getUserByName(req);
+  if(currentUser != undefined){
+    if(currentUser.lvl < 30){
+      res.send(""+cst.LVL_COST[currentUser.lvl]);
+    }else{
+      res.send("MAX");
+    }
   }else{
-    res.send("MAX");
+    res.redirect("/authPage")
   }
 });
-
 
 app.get('/prestige', function(req, res) {
   res.send(user.doPrestige());
@@ -64,5 +109,15 @@ app.get('/godMod',function(req,res){
   user.prestige = 100;
   res.send("cheat ON");
 });
+
+function getUserByName(req){
+  var sess = req.session;
+  for(var i =0;i<listUser.length;i++){
+    if(listUser[i].name == req.session.username){
+      return listUser[i]
+    }
+  }
+  return undefined;
+}
 
 app.listen(3000);

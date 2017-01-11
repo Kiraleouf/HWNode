@@ -19,7 +19,7 @@ $(document).ready(function(){
 	function refresh(){
 		getUser()
 		var data="hello";
-		$.get("http://172.16.152.125:3000/update", function(response) {
+		$.get("http://172.16.152.125:3000/", function(response) {
 			data = response;
 			$("#userData").text(data);
 		}).fail(function(){
