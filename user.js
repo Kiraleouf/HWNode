@@ -71,7 +71,6 @@ function User (name) {
     this.ressources.push(res3);
     this.ressources.push(res4);
     console.log("ressources initialised succes ! ");
-    console.log(this.ressources);
   }
 }
 module.exports = User;

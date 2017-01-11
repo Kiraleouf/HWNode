@@ -5,6 +5,7 @@ var CONSTANTS = require('./constants.js');
 var bodyParser = require('body-parser');
 
 var cst = new CONSTANTS();
+var listUser = [];
 var user = new USER("kira");
 user.initRessources();
 
@@ -26,6 +27,10 @@ app.get('/getUserInfos', function(req, res) {
 
 app.get('/getRessources', function(req, res) {
   res.send(JSON.stringify(user.ressources))
+});
+
+app.post('/login', function(req, res) {
+  res.send()
 });
 
 app.get('/lvlUpUser', function(req, res) {
@@ -53,9 +58,11 @@ app.get('/prestige', function(req, res) {
 });
 
 //TODO Securise this route with admin account
-app.get('/lvlMax',function(req,res){
+app.get('/godMod',function(req,res){
   user.lvl = 30;
-  res.send("cheat ON ! Current level = "+user.lvl);
+  user.gold = 300000000;
+  user.prestige = 100;
+  res.send("cheat ON");
 });
 
 app.listen(3000);
