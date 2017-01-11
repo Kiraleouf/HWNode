@@ -62,10 +62,10 @@ function User (name) {
   }
 
   User.prototype.initRessources = function(){
-    var res1 = new Ressource("BOIS");
-    var res2 = new Ressource("FER");
-    var res3 = new Ressource("MANA");
-    var res4 = new Ressource("GEMMES");
+    var res1 = new Ressource("Charbon");
+    var res2 = new Ressource("Fer");
+    var res3 = new Ressource("Cuivre");
+    var res4 = new Ressource("Bois");
     this.ressources.push(res1);
     this.ressources.push(res2);
     this.ressources.push(res3);

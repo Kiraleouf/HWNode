@@ -56,7 +56,7 @@ app.get('/getRessources', function(req, res) {
 
 app.get('/update', function(req, res) {
   var user = getUserByName(req);
-  res.send(user.update);
+  res.send(user.update());
 })
 app.post('/login', function(req, res) {
   var sess = req.session;
@@ -81,6 +81,7 @@ app.get('/lvlUpUser', function(req, res) {
 
 app.post('/lvlUpRessource', function(req, res) {
   var index = Number(req.body.id)
+  var user = getUserByName(req)
   user.lvlUpRessource(cst.LVL_COST[user.ressources[index].lvl],index);
   res.send("Done")
 });
@@ -104,6 +105,7 @@ app.get('/prestige', function(req, res) {
 
 //TODO Securise this route with admin account
 app.get('/godMod',function(req,res){
+  var user = getUserByName(req)
   user.lvl = 30;
   user.gold = 300000000;
   user.prestige = 100;

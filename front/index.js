@@ -2,7 +2,9 @@ $(document).ready(function(){
 
 
   $(document.body).on('click', 'button', function() {
-    upgradeRessource(this.id);
+    if(this.id != 'addLvlButton'){
+      upgradeRessource(this.id);
+    }
   });
 
   $("#addLvlButton").click(function(){
@@ -54,6 +56,7 @@ $(document).ready(function(){
 
 	function getUser(){
 		$.get("http://172.16.152.125:3000/getUserInfos", function(response) {
+      console.log(response);
 			var user = jQuery.parseJSON(response);
 			$("#nickname").text("Hello "+user.name+"!");
 			generateTableRessource(user.ressources);
