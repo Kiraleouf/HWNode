@@ -47,21 +47,30 @@ function User (name) {
       this.lastUpdateTime = 0;
       return "prestige succes."
     }else{
-    return "can't prestige now."
+      return "can't prestige now."
+    }
+  }
+
+  User.prototype.lvlUpRessource = function(cost,index){
+    if(this.ressources[index] != undefined && this.gold > cost){
+      this.ressources[index].lvlUp();
+      this.gold = this.gold - cost;
+      return "upgrade succes."
+    }else{
+      return "can't up ressource now."
     }
   }
 
   User.prototype.initRessources = function(){
-    var res1 = new Ressource("BOIS");
-    var res2 = new Ressource("FER");
-    var res3 = new Ressource("MANA");
-    var res4 = new Ressource("GEMMES");
+    var res1 = new Ressource("Charbon");
+    var res2 = new Ressource("Fer");
+    var res3 = new Ressource("Cuivre");
+    var res4 = new Ressource("Bois");
     this.ressources.push(res1);
     this.ressources.push(res2);
     this.ressources.push(res3);
     this.ressources.push(res4);
     console.log("ressources initialised succes ! ");
-    console.log(this.ressources);
   }
 }
 module.exports = User;

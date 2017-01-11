@@ -1,3 +1,5 @@
+var CONSTANTS = require('./constants.js');
+var cst =  new CONSTANTS();
 function Ressource (name) {
 
   this.name = name;
@@ -8,6 +10,8 @@ function Ressource (name) {
 
   this.lastUpdateTime = 0;
 
+  this.currentUpgradeCost = cst.LVL_COST[0];
+
   Ressource.prototype.update = function(userPrestige){
     if(this.lastUpdateTime == 0){
       this.lastUpdateTime = Date.now();
@@ -16,9 +20,16 @@ function Ressource (name) {
       var delta = (Date.now() - this.lastUpdateTime)/1000;
       this.lastUpdateTime = Date.now();
       this.ammount = this.ammount + (delta * this.lvl * userPrestige);
+      if(this.ammount > 1000 * this.lvl * userPrestige) this.ammount = 1000*this.lvl*userPrestige;
       this.ammount = roundDecimal(this.ammount,2);
     }
   };
+
+  Ressource.prototype.lvlUp = function(){
+    this.lvl ++;
+    this.currentUpgradeCost = cst.LVL_COST[this.lvl-1]
+  }
+
 }
 module.exports = Ressource;
 

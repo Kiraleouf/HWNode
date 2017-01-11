@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="./index.js"></script></script>
+  </head>
+  <body>
+	<form action="http://172.16.152.125:3000/login" method="post">
+        <label for="loginmsg" style="color:hsla(0,100%,50%,0.5); font-family:"Helvetica Neue",Helvetica,sans-serif;"><?php  echo @$_GET['msg'];?></label>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <input type="submit" value="Login">
+	</form>
+	
+  </body>
+</html>
