@@ -16,6 +16,7 @@ function Ressource (name) {
       var delta = (Date.now() - this.lastUpdateTime)/1000;
       this.lastUpdateTime = Date.now();
       this.ammount = this.ammount + (delta * this.lvl * userPrestige);
+      if(this.ammount > 1000 * this.lvl * userPrestige) this.ammount = 1000*this.lvl*userPrestige;
       this.ammount = roundDecimal(this.ammount,2);
     }
   };

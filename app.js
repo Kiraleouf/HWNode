@@ -2,11 +2,14 @@ var express = require('express');
 var app = express();
 var USER = require('./user.js');
 var CONSTANTS = require('./constants.js');
+var bodyParser = require('body-parser');
 
 var cst = new CONSTANTS();
 var user = new USER("kira");
 user.initRessources();
 
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -30,9 +33,10 @@ app.get('/lvlUpUser', function(req, res) {
   res.send(user.update());
 });
 
-app.get('/lvlUpRessource', function(req, res,index) {
+app.post('/lvlUpRessource', function(req, res) {
+  var index = Number(req.body.id)
   user.lvlUpRessource(cst.LVL_COST[user.ressources[index].lvl],index);
-  res.send(user.update());
+  res.send("Done")
 });
 
 app.get('/lvlUpCost', function(req, res) {
