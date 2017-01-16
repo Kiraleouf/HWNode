@@ -7,7 +7,8 @@ var CONSTANTS = require('./constants.js');
 var bodyParser = require('body-parser');
 var cookieparser = require('cookie-parser')
 var path    = require("path");
-
+var mysql = require("./MySql.js");
+var mysqlCon = new mysql();
 var cst = new CONSTANTS();
 var listUser = [];
 app.use(bodyParser.json()); // support json encoded bodies
@@ -24,14 +25,17 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function(req, res) {
-  res.redirect("/authPage")
+  res.redirect("/home")
 });
+
+app.get('/save',function(){
+  mysqlCon.save(listUser);
+})
 
 app.get('/getUserInfos', function(req, res) {
   var sess = req.session;
   if(req.session != undefined){
     if(req.session.username != undefined){
-      console.log(req.session.username);
       res.send(JSON.stringify(getUserByName(req)))
     }else{
       res.redirect("/authPage")
@@ -46,7 +50,12 @@ app.get('/authPage', function(req, res) {
 })
 
 app.get('/home', function(req, res) {
-  res.sendFile(path.join(__dirname+"/front/home.html"));
+  if(req.session.username != undefined){
+    console.log(req.session);
+    res.sendFile(path.join(__dirname+"/front/home.html"));
+  }else {
+    res.redirect("/authPage")
+  }
 })
 
 app.get('/getRessources', function(req, res) {
