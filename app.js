@@ -7,8 +7,8 @@ var CONSTANTS = require('./constants.js');
 var bodyParser = require('body-parser');
 var cookieparser = require('cookie-parser')
 var path    = require("path");
-var mysql = require("./MySql.js");
-var mysqlCon = new mysql();
+//var mysql = require("./MySql.js");
+//var mysqlCon = new mysql();
 var cst = new CONSTANTS();
 var listUser = [];
 app.use(bodyParser.json()); // support json encoded bodies
@@ -29,7 +29,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/save',function(){
-  mysqlCon.save(listUser);
+  //mysqlCon.save(listUser);
 })
 
 app.get('/getUserInfos', function(req, res) {
