@@ -15,9 +15,8 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(session({
-    secret: TADATA,
-    name: TADATA,
-    store: sessionStore, // connect-mongo session store
+    secret: "TADATA",
+    name: "TADATA", // connect-mongo session store
     proxy: true,
     resave: true,
     saveUninitialized: true
