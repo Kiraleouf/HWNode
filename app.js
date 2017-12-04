@@ -14,7 +14,15 @@ var listUser = [];
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.use(session({secret: 'TADATA'}));
+app.use(session({
+    secret: TADATA,
+    name: TADATA,
+    store: sessionStore, // connect-mongo session store
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
+
 app.use("/front", express.static(__dirname + '/front'));
 
 
