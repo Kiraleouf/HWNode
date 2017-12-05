@@ -21,7 +21,7 @@ $(document).ready(function(){
 	function refresh(){
 		getUser()
 		var data="hello";
-		$.get("http://172.16.152.125:3000/update", function(response) {
+		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/update", function(response) {
 			data = response;
 			$("#userData").text(data);
 		}).fail(function(){
@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 	function addLevel(){
 		var data="hello";
-		$.get("http://172.16.152.125:3000/lvlUpUser", function(response) {
+		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpUser", function(response) {
 			data = response;
 			console.log(data);
 			$("#userData").text(data);
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
 	function getCost(){
 		var data="hello";
-		$.get("http://172.16.152.125:3000/lvlUpCost", function(response) {
+		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpCost", function(response) {
 			data = response;
 			if(data=="MAX"){
 				$("#addLvlButton").text(data);
@@ -55,7 +55,7 @@ $(document).ready(function(){
 	}
 
 	function getUser(){
-		$.get("http://172.16.152.125:3000/getUserInfos", function(response) {
+		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/getUserInfos", function(response) {
       console.log(response);
 			var user = jQuery.parseJSON(response);
 			$("#nickname").text("Hello "+user.name+"!");
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	}
 
  function upgradeRessource(index){
-    $.post( "http://172.16.152.125:3000/lvlUpRessource", {'id' : index}).done(function( data ) {
+    $.post( "http//hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpRessource", {'id' : index}).done(function( data ) {
       console.log( "Data Loaded: " + data );
       refresh()
     });
