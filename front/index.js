@@ -21,7 +21,7 @@ $(document).ready(function(){
 	function refresh(){
 		getUser()
 		var data="hello";
-		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/update", function(response) {
+		$.get("/update", function(response) {
 			data = response;
 			$("#userData").text(data);
 		}).fail(function(){
@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 	function addLevel(){
 		var data="hello";
-		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpUser", function(response) {
+		$.get("/lvlUpUser", function(response) {
 			data = response;
 			console.log(data);
 			$("#userData").text(data);
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
 	function getCost(){
 		var data="hello";
-		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpCost", function(response) {
+		$.get("/lvlUpCost", function(response) {
 			data = response;
 			if(data=="MAX"){
 				$("#addLvlButton").text(data);
@@ -55,7 +55,7 @@ $(document).ready(function(){
 	}
 
 	function getUser(){
-		$.get("http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/getUserInfos", function(response) {
+		$.get("/getUserInfos", function(response) {
       console.log(response);
 			var user = jQuery.parseJSON(response);
 			$("#nickname").text("Hello "+user.name+"!");
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	}
 
  function upgradeRessource(index){
-    $.post( "http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpRessource", {'id' : index}).done(function( data ) {
+    $.post( "/lvlUpRessource", {'id' : index}).done(function( data ) {
       console.log( "Data Loaded: " + data );
       refresh()
     });
