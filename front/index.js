@@ -66,7 +66,7 @@ $(document).ready(function(){
 	}
 
  function upgradeRessource(index){
-    $.post( "http//hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpRessource", {'id' : index}).done(function( data ) {
+    $.post( "http://hwnode-hwnode2.193b.starter-ca-central-1.openshiftapps.com/lvlUpRessource", {'id' : index}).done(function( data ) {
       console.log( "Data Loaded: " + data );
       refresh()
     });
