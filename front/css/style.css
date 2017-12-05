@@ -1,0 +1,9 @@
+#contenu {
+    position: relative;
+}
+
+#scoreTab{
+    position: absolute;
+    top: 0px;
+    right: 100px;
+}

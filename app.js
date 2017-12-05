@@ -134,4 +134,15 @@ function getUserByName(req){
   return undefined;
 }
 
+app.get('/getScores',function(req,res){
+  var sess = req.session;
+  var listScores = [];
+  for(var i =0;i<listUser.length;i++){
+    listScores[i] = listUser[i].name + " / " + listUser[i].lvl + " / " + listUser[i].gold;
+  }
+  console.log("ListScores : ")
+  console.log(listScores)
+  res.send(listScores);
+});
+
 app.listen(8080);

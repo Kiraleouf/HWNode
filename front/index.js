@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
   $(document.body).on('click', 'button', function() {
     if(this.id != 'addLvlButton'){
       upgradeRessource(this.id);
@@ -65,6 +64,25 @@ $(document).ready(function(){
 		});
 	}
 
+	function getScores(){
+		console.log("WOWOWOWOWO");
+		$.get("/getScores", function(response) {
+			console.log("POWPOWPOWPOW")
+			$('#scoreTable').append('<tbody>')
+			$('#scoreTable').append('<tr><td> Name / level / Golds </td></tr>');
+			for (i = 0; i < response.length; i++) {
+				$('#scoreTable')
+				.append(
+				'<tr><td>'
+				+response[i]+
+				'</td></tr>');
+			}
+			$('#scoreTable').append('</tbody>')
+		}).fail(function(){
+			console.log("MOWMOWMOW")
+		});
+	}
+
  function upgradeRessource(index){
     $.post( "/lvlUpRessource", {'id' : index}).done(function( data ) {
       console.log( "Data Loaded: " + data );
@@ -95,4 +113,5 @@ $(document).ready(function(){
 	getUser();
 	getCost();
 	refreshLoop();
+	getScores();
 });
