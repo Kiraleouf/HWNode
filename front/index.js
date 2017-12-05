@@ -69,12 +69,16 @@ $(document).ready(function(){
 		$.get("/getScores", function(response) {
 			console.log("POWPOWPOWPOW")
 			$('#scoreTable').append('<tbody>')
-			$('#scoreTable').append('<tr><td> Name / level / Golds </td></tr>');
+			$('#scoreTable').append('<tr><td> Name </td><td> level </td><td> Golds </td></tr>');
 			for (i = 0; i < response.length; i++) {
 				$('#scoreTable')
 				.append(
 				'<tr><td>'
-				+response[i]+
+				+response[i].name +
+				'</td><td>'
+				+response[i].lvl +
+				'</td><td>'
+				+response[i].gold +
 				'</td></tr>');
 			}
 			$('#scoreTable').append('</tbody>')

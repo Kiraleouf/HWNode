@@ -138,7 +138,7 @@ app.get('/getScores',function(req,res){
   var sess = req.session;
   var listScores = [];
   for(var i =0;i<listUser.length;i++){
-    listScores[i] = listUser[i].name + " / " + listUser[i].lvl + " / " + listUser[i].gold;
+    listScores[i] = listUser[i];
   }
   console.log("ListScores : ")
   console.log(listScores)
